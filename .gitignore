@@ -1,0 +1,15 @@
+# Temporary files
+*.tmp
+*.log
+
+# Local environment files
+.env
+.env.*
+
+# OS/editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Outputs can contain machine-specific data
+outputs/
