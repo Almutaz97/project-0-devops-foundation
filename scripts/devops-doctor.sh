@@ -29,6 +29,33 @@ else
   echo "Git command: MISSING"
 fi
 
+echo "-------------"
+echo "Checking Git repository..."
+
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "Git repository: YES"
+
+  if git remote get-url origin >/dev/null 2>&1; then
+    echo "Git origin remote: $(git remote get-url origin)"
+  else
+    echo "Git origin remote: MISSING"
+  fi
+
+  if git rev-parse --abbrev-ref --symbolic-full-name @{u} >/dev/null 2>&1; then
+    echo "Git upstream branch: $(git rev-parse --abbrev-ref --symbolic-full-name @{u})"
+  else
+    echo "Git upstream branch: MISSING"
+  fi
+
+  if git ls-remote --exit-code origin HEAD >/dev/null 2>&1; then
+    echo "Git origin access: OK"
+  else
+    echo "Git origin access: WARNING - cannot reach origin"
+  fi
+else
+  echo "Git repository: NO"
+fi
+
 if command -v docker >/dev/null 2>&1; then
   echo "Docker command: FOUND"
 else
